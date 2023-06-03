@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react';
 import { Tilt } from 'react-tilt';
 import { motion } from 'framer-motion';
 import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
 import { SectionWrapper } from '../hoc';
+import downloadIcon from '../assets/download.png';
 
 const ServiceCard = ({index, title, icon}) => {
   return (
@@ -32,6 +33,13 @@ const ServiceCard = ({index, title, icon}) => {
 }
 
 const About = () => {
+  const downloadRef = useRef(null);
+
+  const handleDownload = () => {
+    const link = downloadRef.current;
+    link.click();
+  };
+
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -50,6 +58,25 @@ const About = () => {
         <p>I like to play video games, watching TV Shows,movies and reading books.</p>
         <p>I've been wanting to learn more about programming, so I made the decision to enter the bootcamp Academia De Código.</p>
       </motion.p>
+      <button
+        className="btn bg-gradient-to-r from-green-400 to-blue-500 text-white font-medium py-3 px-6 rounded-md shadow-lg mt-8 inline-block relative overflow-hidden"
+        onClick={handleDownload}
+      >
+        <img
+          src={downloadIcon}
+          alt="Download CV"
+          className="inline-block mr-2 w-5 h-5 align-middle"
+        />
+        Download CV
+      </button>
+      <a
+        ref={downloadRef}
+        href="src/CV/Rafael_Teles_CV.pdf"
+        style={{ display: 'none' }}
+        download
+      >
+        Download CV
+      </a>
 
       <div className='mt-20 flex flex-wrap gap-10'>
         {services.map((service, index) => (
